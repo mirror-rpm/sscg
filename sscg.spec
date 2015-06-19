@@ -6,7 +6,7 @@
 
 Name:           %{srcname}
 Version:        0.4.1
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        Self-signed certificate generator
 
 License:        BSD
@@ -75,6 +75,9 @@ rm -rf $RPM_BUILD_ROOT
 %endif #use_python3
 
 %changelog
+* Fri Jun 19 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.4.1-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
+
 * Mon Mar 30 2015 Stephen Gallagher <sgallagh@redhat.com> 0.4.1-1
 - Change default CA location to match service certificate
 - Improve error handling
