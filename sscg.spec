@@ -5,13 +5,13 @@
 # https://github.com/sgallagher/sscg
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit          a3fe426d3cd1c3c65375bda774f631e9ed20e9c0
+%global commit          6858b790a1ff90e77fe5fc5f01a67332a4f06755
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
 
 Name:           %{repo}
-Version:        1.0.0
+Version:        1.0.1
 Release:        1%{?dist}
 Summary:        Self-signed certificate generator
 
@@ -53,6 +53,9 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Mon May 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.1-1
+- Fix issue with temporary file creation
+
 * Mon May 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.0-1
 - New upstream release 1.0.0
 - Rewritten in Go
