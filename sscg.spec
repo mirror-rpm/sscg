@@ -1,38 +1,30 @@
-%if (0%{?fedora} >= 22 || 0%{?rhel} >= 8)
-%global use_python3 1
-%endif
+%global provider        github
+%global provider_tld    com
+%global project sgallagher
+%global repo sscg
+# https://github.com/sgallagher/sscg
+%global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
+%global import_path     %{provider_prefix}
+%global commit          a3fe426d3cd1c3c65375bda774f631e9ed20e9c0
+%global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
-%global srcname sscg
 
-Name:           %{srcname}
-Version:        0.4.1
-Release:        4%{?dist}
+
+Name:           %{repo}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Self-signed certificate generator
 
 License:        BSD
-URL:            https://github.com/sgallagher/%{srcname}
-Source0:        https://github.com/sgallagher/%{srcname}/releases/download/%{srcname}-%{version}/%{srcname}-%{version}.tar.gz
+URL:            https://%{provider_prefix}
+Source0:        https://%{provider_prefix}/archive/%{commit}/%{repo}-%{version}-%{shortcommit}.tar.gz
+ExclusiveArch: %{go_arches}
 
-BuildArch:      noarch
+BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
+BuildRequires:  openssl-devel
 
-%if 0%{?use_python3}
-Requires:       python3-pyOpenSSL
-Requires:       python3-pyasn1
-Requires:       python3-setuptools
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-pyOpenSSL
-BuildRequires:  python3-pyasn1
-%else
-Requires:       pyOpenSSL
-Requires:       python-pyasn1
-Requires:       python-setuptools
-BuildRequires:  python-devel
-BuildRequires:  python-setuptools
-BuildRequires:  pyOpenSSL
-BuildRequires:  python-pyasn1
-%endif
-BuildRequires: gettext
+Provides: bundled(golang(github.com/spacemonkeygo/openssl))
+Provides: bundled(golang(github.com/spacemonkeygo/spacelog))
 
 %description
 A utility to aid in the creation of more secure "self-signed"
@@ -43,40 +35,30 @@ up a full PKI environment and without exposing the machine to a risk of
 false signatures from the service certificate.
 
 %prep
-%setup -q -n %{srcname}-%{version}
+%setup -q -n %{repo}-%{commit}
 
 %build
-# Ensure egg-info is regenerated
-rm -rf src/*.egg-info
+mkdir -p src/%{provider}.%{provider_tld}/%{project}/
+ln -s ../../../ src/%{provider}.%{provider_tld}/%{project}/%{repo}
 
-%if 0%{?use_python3}
-%{__python3} setup.py build
-%else
-%{__python2} setup.py build
-%endif # use_python3
+export GOPATH=$(pwd):$(pwd)/Godeps/_workspace:%{gopath}
+%gobuild -o bin/%{name} %{import_path}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-
-%if 0%{?use_python3}
-%{__python3} setup.py install --skip-build --root $RPM_BUILD_ROOT
-%else
-%{__python} setup.py install -O1 --skip-build --root $RPM_BUILD_ROOT
-%endif # use_python3
+install -d -p %{buildroot}%{_bindir}
+install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 
 %files
-%license src/sscg/LICENSE
-%{_bindir}/%{srcname}
-
-%if 0%{?use_python3}
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
-%else
-%{python2_sitelib}/%{srcname}/
-%{python2_sitelib}/%{srcname}-%{version}-py%{python2_version}.egg-info/
-%endif #use_python3
+%license LICENSE
+%{_bindir}/%{repo}
 
 %changelog
+* Mon May 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.0-1
+- New upstream release 1.0.0
+- Rewritten in Go
+- Runtime depends only on OpenSSL, no more Python
+- Support for writing certificate and key in a single file
+
 * Wed May 18 2016 Stephen Gallagher <sgallagh@redhat.com> - 0.4.1-4
 - Add requirement on python-setuptools
 
