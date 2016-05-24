@@ -5,13 +5,13 @@
 # https://github.com/sgallagher/sscg
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit          897a89ad8a332fa5b5cd6e3bf2eaa91681fcc9ee
+%global commit          ecdee74991116be7222526174fc7e10696985e92
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
 
 Name:           %{repo}
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Self-signed certificate generator
 
@@ -53,6 +53,9 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Tue May 24 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.3-1
+- Only sign certificates after all extensions have been added
+
 * Mon May 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.2-1
 - Generate x509v3 certificates
 
