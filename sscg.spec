@@ -5,15 +5,15 @@
 # https://github.com/sgallagher/sscg
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit          024d20e2f7b375fa8ba9bf5c94d179161b3fe5bd
+%global commit          4f90b27b548cbf457314b8586dc26bfd4f234155
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
 
 Name:           %{repo}
-Version:        1.0.4
+Version:        1.1.0
 Release:        1%{?dist}
-Summary:        Self-signed certificate generator
+Summary:        Simple SSL certificate generator
 
 License:        BSD
 URL:            https://%{provider_prefix}
@@ -54,6 +54,10 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Wed May 25 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-1
+- Update to 1.1.0
+- Add support for signing service keys with an existing CA
+
 * Wed May 25 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.4-1
 - Add support for exporting the CA private key
 - Fix incorrect output from -version
