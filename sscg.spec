@@ -5,13 +5,13 @@
 # https://github.com/sgallagher/sscg
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit          ecdee74991116be7222526174fc7e10696985e92
+%global commit          024d20e2f7b375fa8ba9bf5c94d179161b3fe5bd
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
 
 Name:           %{repo}
-Version:        1.0.3
+Version:        1.0.4
 Release:        1%{?dist}
 Summary:        Self-signed certificate generator
 
@@ -50,9 +50,15 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 
 %files
 %license LICENSE
+%doc README.md
 %{_bindir}/%{repo}
 
 %changelog
+* Wed May 25 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.4-1
+- Add support for exporting the CA private key
+- Fix incorrect output from -version
+- Add README.md
+
 * Tue May 24 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.0.3-1
 - Only sign certificates after all extensions have been added
 
