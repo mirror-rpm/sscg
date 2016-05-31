@@ -12,7 +12,7 @@
 
 Name:           %{repo}
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -22,9 +22,10 @@ ExclusiveArch: %{go_arches}
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 BuildRequires:  openssl-devel
+BuildRequires:  golang(github.com/spacemonkeygo/spacelog)
 
 Provides: bundled(golang(github.com/spacemonkeygo/openssl))
-Provides: bundled(golang(github.com/spacemonkeygo/spacelog))
+#Provides: bundled(golang(github.com/spacemonkeygo/spacelog))
 
 %description
 A utility to aid in the creation of more secure "self-signed"
@@ -36,6 +37,9 @@ false signatures from the service certificate.
 
 %prep
 %setup -q -n %{repo}-%{commit}
+
+# Remove debundled spacelog
+rm -rf vendor/github.com/spacemonkeygo/spacelog
 
 %build
 mkdir -p src/%{provider}.%{provider_tld}/%{project}/
@@ -54,6 +58,9 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Tue May 31 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-2
+- Debundle spacelog
+
 * Wed May 25 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-1
 - Update to 1.1.0
 - Add support for signing service keys with an existing CA
