@@ -12,7 +12,7 @@
 
 Name:           %{repo}
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -58,6 +58,9 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Thu Jul 21 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-3
+- https://fedoraproject.org/wiki/Changes/golang1.7
+
 * Tue May 31 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-2
 - Debundle spacelog
 
