@@ -12,7 +12,7 @@
 
 Name:           %{repo}
 Version:        1.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -21,7 +21,13 @@ Source0:        https://%{provider_prefix}/archive/%{commit}/%{repo}-%{version}-
 ExclusiveArch: %{go_arches}
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
+
+%if 0%{?fedora} < 26
 BuildRequires:  openssl-devel
+%else
+BuildRequires:  compat-openssl10-devel
+%endif
+
 BuildRequires:  golang(github.com/spacemonkeygo/spacelog)
 
 Provides: bundled(golang(github.com/spacemonkeygo/openssl))
@@ -58,6 +64,9 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Wed Nov 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-4
+- Use compat-openssl10-devel on F26+
+
 * Thu Jul 21 2016 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.0-3
 - https://fedoraproject.org/wiki/Changes/golang1.7
 
