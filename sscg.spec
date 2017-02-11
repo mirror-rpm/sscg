@@ -12,7 +12,7 @@
 
 Name:           %{repo}
 Version:        1.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -64,6 +64,9 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
+
 * Wed Nov 23 2016 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-4
 - Use compat-openssl10-devel on F26+
 
