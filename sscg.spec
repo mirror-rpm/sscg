@@ -12,13 +12,15 @@
 
 Name:           %{repo}
 Version:        1.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
 URL:            https://%{provider_prefix}
 Source0:        https://%{provider_prefix}/archive/%{commit}/%{repo}-%{version}-%{shortcommit}.tar.gz
 ExclusiveArch: %{go_arches}
+# PPC64 lacks the ability to link against C libraries
+ExcludeArch: ppc64 ppc64p7
 
 BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
 
@@ -64,6 +66,9 @@ install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
 %{_bindir}/%{repo}
 
 %changelog
+* Thu Feb 16 2017 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-6
+- Exclude PPC64 from the build since it doesn't support linking to OpenSSL
+
 * Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
