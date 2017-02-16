@@ -1,39 +1,28 @@
-%global provider        github
 %global provider_tld    com
 %global project sgallagher
 %global repo sscg
 # https://github.com/sgallagher/sscg
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit          4f90b27b548cbf457314b8586dc26bfd4f234155
+%global commit          b994c9eab1d3b1ec4c2470c2955945d5f2937da1
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
 
-Name:           %{repo}
-Version:        1.1.0
-Release:        6%{?dist}
+Name:           sscg
+Version:        2.0.0
+Release:        1.rc1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
 URL:            https://%{provider_prefix}
-Source0:        https://%{provider_prefix}/archive/%{commit}/%{repo}-%{version}-%{shortcommit}.tar.gz
-ExclusiveArch: %{go_arches}
-# PPC64 lacks the ability to link against C libraries
-ExcludeArch: ppc64 ppc64p7
+Source0:        https://%{provider_prefix}/archive/%{commit}/%{repo}-%{version}.tar.gz
 
-BuildRequires:  %{?go_compiler:compiler(go-compiler)}%{!?go_compiler:golang}
-
-%if 0%{?fedora} < 26
+BuildRequires:  gcc
+BuildRequires:  libtalloc-devel
 BuildRequires:  openssl-devel
-%else
-BuildRequires:  compat-openssl10-devel
-%endif
-
-BuildRequires:  golang(github.com/spacemonkeygo/spacelog)
-
-Provides: bundled(golang(github.com/spacemonkeygo/openssl))
-#Provides: bundled(golang(github.com/spacemonkeygo/spacelog))
+BuildRequires:  popt-devel
+BuildRequires:  libpath_utils-devel
 
 %description
 A utility to aid in the creation of more secure "self-signed"
@@ -44,28 +33,24 @@ up a full PKI environment and without exposing the machine to a risk of
 false signatures from the service certificate.
 
 %prep
-%setup -q -n %{repo}-%{commit}
+%setup -q -n %{name}-%{version}
 
-# Remove debundled spacelog
-rm -rf vendor/github.com/spacemonkeygo/spacelog
 
 %build
-mkdir -p src/%{provider}.%{provider_tld}/%{project}/
-ln -s ../../../ src/%{provider}.%{provider_tld}/%{project}/%{repo}
-
-export GOPATH=$(pwd):$(pwd)/Godeps/_workspace:%{gopath}
-%gobuild -o bin/%{name} %{import_path}
+%configure
+%make_build
 
 %install
-install -d -p %{buildroot}%{_bindir}
-install -p -m 755 bin/%{name} %{buildroot}%{_bindir}
+%make_install
 
 %files
-%license LICENSE
-%doc README.md
-%{_bindir}/%{repo}
+%license COPYING
+%{_bindir}/%{name}
 
 %changelog
+* Thu Feb 16 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.0-1.rc1
+- Update to 2.0.0
+
 * Thu Feb 16 2017 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-6
 - Exclude PPC64 from the build since it doesn't support linking to OpenSSL
 
