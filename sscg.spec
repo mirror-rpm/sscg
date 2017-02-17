@@ -1,3 +1,4 @@
+%global provider        github
 %global provider_tld    com
 %global project sgallagher
 %global repo sscg
@@ -11,12 +12,12 @@
 
 Name:           sscg
 Version:        2.0.0
-Release:        1.rc1%{?dist}
+Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
 URL:            https://%{provider_prefix}
-Source0:        https://%{provider_prefix}/archive/%{commit}/%{repo}-%{version}.tar.gz
+Source0:        https://%{provider_prefix}/releases/download/%{repo}-%{version}/%{repo}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libtalloc-devel
@@ -45,10 +46,11 @@ false signatures from the service certificate.
 
 %files
 %license COPYING
+%doc README.md
 %{_bindir}/%{name}
 
 %changelog
-* Thu Feb 16 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.0-1.rc1
+* Thu Feb 16 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.0-1
 - Update to 2.0.0
 
 * Thu Feb 16 2017 Stephen Gallagher <sgallagh@redhat.com> - 1.1.0-6
