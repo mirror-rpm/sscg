@@ -11,7 +11,7 @@
 
 
 Name:           sscg
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
@@ -50,6 +50,10 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Fri Mar 03 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.1-1
+- Update to 2.0.1
+- Fix an issue with passing certificate lifetime explicitly
+
 * Thu Feb 16 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.0-1
 - Update to 2.0.0
 
