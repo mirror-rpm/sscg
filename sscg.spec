@@ -11,7 +11,7 @@
 
 
 Name:           sscg
-Version:        2.0.3
+Version:        2.0.4
 Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
@@ -50,6 +50,11 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Mar 21 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.4-1
+- Update to 2.0.4
+- Addresses a potential race-condition when the key and certificate share the
+  same file.
+
 * Wed Mar 08 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.3-1
 - Update to 2.0.3
 - Adds support for setting the file mode on the output certificates
