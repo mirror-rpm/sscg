@@ -12,7 +12,7 @@
 
 Name:           sscg
 Version:        2.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -50,6 +50,9 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
+
 * Mon Apr 03 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.0.4-2
 - Bump release to perform taskotron tests
 
