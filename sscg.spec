@@ -11,8 +11,8 @@
 
 
 Name:           sscg
-Version:        2.0.4
-Release:        4%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -50,6 +50,9 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Wed Sep 20 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.1.0-1
+- Add --email argument for setting emailAddress in the issuer
+
 * Thu Aug 03 2017 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
 
