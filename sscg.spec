@@ -11,7 +11,7 @@
 
 
 Name:           sscg
-Version:        2.1.0
+Version:        2.2.0
 Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
@@ -50,6 +50,10 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Sep 21 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.2.0-1
+- Reorder combined PEM file
+- Resolves: RHBZ#1494208
+
 * Wed Sep 20 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.1.0-1
 - Add --email argument for setting emailAddress in the issuer
 
