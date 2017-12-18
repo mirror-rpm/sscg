@@ -5,25 +5,24 @@
 # https://github.com/sgallagher/sscg
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
-%global commit          b994c9eab1d3b1ec4c2470c2955945d5f2937da1
-%global shortcommit     %(c=%{commit}; echo ${c:0:7})
-
 
 
 Name:           sscg
-Version:        2.2.0
+Version:        2.3.0
 Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
 URL:            https://%{provider_prefix}
-Source0:        https://%{provider_prefix}/releases/download/%{repo}-%{version}/%{repo}-%{version}.tar.gz
+Source0:        https://%{provider_prefix}/releases/download/%{repo}-%{version}/%{repo}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  libtalloc-devel
 BuildRequires:  openssl-devel
 BuildRequires:  popt-devel
 BuildRequires:  libpath_utils-devel
+BuildRequires:  meson
+BuildRequires:  ninja-build
 
 %description
 A utility to aid in the creation of more secure "self-signed"
@@ -34,15 +33,18 @@ up a full PKI environment and without exposing the machine to a risk of
 false signatures from the service certificate.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup
 
 
 %build
-%configure
-%make_build
+%meson
+%meson_build
 
 %install
-%make_install
+%meson_install
+
+%check
+%meson_test
 
 %files
 %license COPYING
@@ -50,6 +52,11 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Mon Dec 18 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.3.0-1
+- Update to 2.3.0
+- Switch to meson build system
+- Add support for non-DNS subjectAlternativeName values (issue #4)
+
 * Thu Sep 21 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.2.0-1
 - Reorder combined PEM file
 - Resolves: RHBZ#1494208
