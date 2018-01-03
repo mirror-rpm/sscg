@@ -9,7 +9,7 @@
 
 Name:           sscg
 Version:        2.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -44,7 +44,10 @@ false signatures from the service certificate.
 %meson_install
 
 %check
+
+%ifnarch %{arm}
 %meson_test
+%endif
 
 %files
 %license COPYING
@@ -52,6 +55,9 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jan 02 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.1-2
+- Skip tests on 32-bit ARM for now
+
 * Tue Jan 02 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.1-1
 - Update to 2.3.1
 - Bundle popt 1.16 on older releases like EPEL.
