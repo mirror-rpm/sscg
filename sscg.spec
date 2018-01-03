@@ -8,7 +8,7 @@
 
 
 Name:           sscg
-Version:        2.3.0
+Version:        2.3.1
 Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
@@ -52,6 +52,10 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
+* Tue Jan 02 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.1-1
+- Update to 2.3.1
+- Bundle popt 1.16 on older releases like EPEL.
+
 * Mon Dec 18 2017 Stephen Gallagher <sgallagh@redhat.com> - 2.3.0-1
 - Update to 2.3.0
 - Switch to meson build system
