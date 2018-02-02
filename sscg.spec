@@ -8,7 +8,7 @@
 
 
 Name:           sscg
-Version:        2.3.2
+Version:        2.3.3
 Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
@@ -55,8 +55,12 @@ false signatures from the service certificate.
 %{_bindir}/%{name}
 
 %changelog
-* Thu Jan 25 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.2-1
+* Fri Feb 02 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.3-1
 - Update to 2.3.3
+- Do not overwrite destination files without --force
+
+* Thu Jan 25 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.2-1
+- Update to 2.3.2
 - Properly support hostnames up to 64 characters
 - Resolves: rhbz#1535537
 
