@@ -9,7 +9,7 @@
 
 Name:           sscg
 Version:        2.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -23,6 +23,11 @@ BuildRequires:  popt-devel
 BuildRequires:  libpath_utils-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
+BuildRequires:  help2man
+
+# Patches
+Patch0001: 0001-Generate-manpage.patch
+
 
 %description
 A utility to aid in the creation of more secure "self-signed"
@@ -53,8 +58,12 @@ false signatures from the service certificate.
 %license COPYING
 %doc README.md
 %{_bindir}/%{name}
+%{_mandir}/man8/%{name}.8*
 
 %changelog
+* Mon Sep 17 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.3-4
+- Add a manpage.
+
 * Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 

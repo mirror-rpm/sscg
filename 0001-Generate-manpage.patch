@@ -1,0 +1,56 @@
+From df9da4099d1f50f014ee46a19b77f20a1551d260 Mon Sep 17 00:00:00 2001
+From: Stephen Gallagher <sgallagh@redhat.com>
+Date: Mon, 17 Sep 2018 09:58:25 -0400
+Subject: [PATCH] Generate manpage
+
+Signed-off-by: Stephen Gallagher <sgallagh@redhat.com>
+---
+ meson.build | 22 +++++++++++++++++++++-
+ 1 file changed, 21 insertions(+), 1 deletion(-)
+
+diff --git a/meson.build b/meson.build
+index 4763caec12a2ad96726d1de78d29233ec7b4d8f5..8a2daa60f722605746dd2c37901e05ad78a88710 100644
+--- a/meson.build
++++ b/meson.build
+@@ -5,11 +5,11 @@ project('sscg', 'c',
+           'c_std=gnu99',
+           'warning_level=1',
+           'b_asneeded=true',
+         ],
+         license : 'MIT',
+-        meson_version : '>=0.36.0')
++        meson_version : '>=0.40.0')
+ 
+ cc = meson.get_compiler('c')
+ test_cflags = [
+   '-Wpointer-arith',
+   '-Wmissing-declarations',
+@@ -149,5 +149,25 @@ cdata.set('version', meson.project_version())
+ configure_file(
+     input : 'config.h.in',
+     output : 'config.h',
+     configuration : cdata)
+ 
++# Generate a manpage from the POPT documentation
++help2man = find_program('help2man')
++
++manpage = custom_target('manpage',
++    output : 'sscg.8',
++    capture : true,
++    command : [
++        help2man,
++        '-s', '8',
++        '-n', 'Tool for generating x.509 certificates',
++        '-N',
++        sscg,
++    ],
++    install : true,
++    build_by_default : true,
++    install_dir : join_paths(
++        get_option('prefix'),
++        get_option('mandir'),
++        'man8'),
++)
+-- 
+2.19.0
+
