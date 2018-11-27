@@ -8,8 +8,8 @@
 
 
 Name:           sscg
-Version:        2.3.3
-Release:        4%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -24,9 +24,6 @@ BuildRequires:  libpath_utils-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man
-
-# Patches
-Patch0001: 0001-Generate-manpage.patch
 
 
 %description
@@ -61,6 +58,13 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Tue Nov 27 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.4.0-1
+- Update to 2.4.0
+- Autodetect the minimum key strength from the system security level.
+- Disallow setting a key strength below the system minimum.
+
+- Drop upstreamed patches
+
 * Mon Sep 17 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.3.3-4
 - Add a manpage.
 
