@@ -24,6 +24,7 @@ BuildRequires:  libpath_utils-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man
+BuildRequires:  clang
 
 
 %description
