@@ -8,7 +8,7 @@
 
 
 Name:           sscg
-Version:        2.5.0
+Version:        2.5.1
 Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
@@ -59,6 +59,10 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Nov 28 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.5.1-1
+- Update to 2.5.1
+- Fixes discovered by automated testing.
+
 * Wed Nov 28 2018 Stephen Gallagher <sgallagh@redhat.com> - 2.5.0-1
 - Update to 2.5.0
 - Auto-detect the hash algorithm to use by default.
