@@ -8,8 +8,8 @@
 
 
 Name:           sscg
-Version:        2.5.1
-Release:        3%{?dist}
+Version:        2.6.0
+Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -59,6 +59,14 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Fri Dec 13 2019 Stephen Gallagher <sgallagh@redhat.com> - 2.6.0-1
+- Update to 2.6.0
+- Can now generate an empty CRL file.
+- Can now create and store a Diffie-Hellman parameters (dhparams) file.
+- Support for setting a password on private keys.
+- Support for generating a client authentication certificate and key.
+- Better support for OpenSSL 1.0
+
 * Sat Jul 27 2019 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
