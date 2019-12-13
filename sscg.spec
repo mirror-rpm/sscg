@@ -9,7 +9,7 @@
 
 Name:           sscg
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -27,6 +27,9 @@ BuildRequires:  help2man
 BuildRequires:  clang
 
 
+Patch0001: 0001-Fix-help-message-for-client-key-file.patch
+
+
 %description
 A utility to aid in the creation of more secure "self-signed"
 certificates. The certificates created by this tool are generated in a
@@ -36,7 +39,7 @@ up a full PKI environment and without exposing the machine to a risk of
 false signatures from the service certificate.
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -59,6 +62,9 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Fri Dec 13 2019 Stephen Gallagher <sgallagh@redhat.com> - 2.6.0-2
+- Fix incorrect help description for --client-key-file
+
 * Fri Dec 13 2019 Stephen Gallagher <sgallagh@redhat.com> - 2.6.0-1
 - Update to 2.6.0
 - Can now generate an empty CRL file.
