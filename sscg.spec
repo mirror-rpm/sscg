@@ -8,8 +8,8 @@
 
 
 Name:           sscg
-Version:        2.6.0
-Release:        2%{?dist}
+Version:        2.6.1
+Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -26,8 +26,6 @@ BuildRequires:  ninja-build
 BuildRequires:  help2man
 BuildRequires:  clang
 
-
-Patch0001: 0001-Fix-help-message-for-client-key-file.patch
 
 
 %description
@@ -62,6 +60,9 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Jan 09 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.1-1
+- Bugfixes from upstream
+
 * Fri Dec 13 2019 Stephen Gallagher <sgallagh@redhat.com> - 2.6.0-2
 - Fix incorrect help description for --client-key-file
 
