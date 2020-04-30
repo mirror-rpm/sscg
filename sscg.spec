@@ -9,7 +9,7 @@
 
 Name:           sscg
 Version:        2.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -24,8 +24,8 @@ BuildRequires:  libpath_utils-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man
-BuildRequires:  clang
 
+Patch0001: 0001-Make-clang-format-optional.patch
 
 
 %description
@@ -48,10 +48,7 @@ false signatures from the service certificate.
 %meson_install
 
 %check
-
-%ifnarch %{arm}
-%meson_test
-%endif
+%meson_test -t 10
 
 %files
 %license COPYING
@@ -60,6 +57,10 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Apr 30 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.1-3
+- Don't bother running clang-format in the RPM build
+- Lengthen the test timeout so ARM tests pass
+
 * Fri Jan 31 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 

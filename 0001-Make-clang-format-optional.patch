@@ -1,0 +1,47 @@
+From b850af14a6743d51b0b2df5e2414c6383c643f9d Mon Sep 17 00:00:00 2001
+From: Stephen Gallagher <sgallagh@redhat.com>
+Date: Thu, 30 Apr 2020 10:36:52 -0400
+Subject: [PATCH] Make clang-format optional
+
+Signed-off-by: Stephen Gallagher <sgallagh@redhat.com>
+---
+ meson.build | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/meson.build b/meson.build
+index 34392083f254b6851debfa77b807d88e85f22b8d..a57bfe8ff3484ad7a1c5941d5ac570ff0c559eab 100644
+--- a/meson.build
++++ b/meson.build
+@@ -5,11 +5,11 @@ project('sscg', 'c',
+           'c_std=gnu99',
+           'warning_level=1',
+           'b_asneeded=true',
+         ],
+         license : 'MIT',
+-        meson_version : '>=0.40.0')
++        meson_version : '>=0.44.0')
+ 
+ cc = meson.get_compiler('c')
+ test_cflags = [
+   '-Wpointer-arith',
+   '-Wmissing-declarations',
+@@ -108,11 +108,15 @@ sscg = executable(
+     include_directories : popt_incdirs,
+     install : true,
+ )
+ 
+ # Fake test to ensure that all sources and headers are formatted properly
+-test_clang_format = find_program('clang-format')
++test_clang_format = find_program('clang-format', required: false)
++if not test_clang_format.found()
++    test_clang_format = disabler()
++endif
++
+ clang_args = [ '-i' ]
+ test('test_clang_format', test_clang_format,
+      args : clang_args + files(sscg_lib_srcs + sscg_lib_hdrs + sscg_bin_srcs))
+ 
+ create_ca_test = executable(
+-- 
+2.26.2
+
