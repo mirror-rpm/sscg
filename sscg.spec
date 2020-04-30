@@ -9,7 +9,7 @@
 
 Name:           sscg
 Version:        2.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -57,6 +57,9 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Thu Apr 30 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.1-4
+- Rebuild with corrected ELN macro definitions
+
 * Thu Apr 30 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.1-3
 - Don't bother running clang-format in the RPM build
 - Lengthen the test timeout so ARM tests pass
