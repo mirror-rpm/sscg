@@ -8,8 +8,8 @@
 
 
 Name:           sscg
-Version:        2.6.1
-Release:        4%{?dist}
+Version:        2.6.2
+Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        BSD
@@ -57,6 +57,10 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Tue Jun 23 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.2-1
+- Update to 2.6.2
+- Handle very short and very long passphrases properly (fixes rhbz#1850183)
+
 * Thu Apr 30 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.1-4
 - Rebuild with corrected ELN macro definitions
 
