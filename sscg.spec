@@ -25,8 +25,6 @@ BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man
 
-Patch0001: 0001-Make-clang-format-optional.patch
-
 
 %description
 A utility to aid in the creation of more secure "self-signed"
@@ -60,6 +58,7 @@ false signatures from the service certificate.
 * Tue Jun 23 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.2-1
 - Update to 2.6.2
 - Handle very short and very long passphrases properly (fixes rhbz#1850183)
+- Drop upstreamed patch
 
 * Thu Apr 30 2020 Stephen Gallagher <sgallagh@redhat.com> - 2.6.1-4
 - Rebuild with corrected ELN macro definitions
