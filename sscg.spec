@@ -9,10 +9,10 @@
 
 Name:           sscg
 Version:        2.6.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple SSL certificate generator
 
-License:        BSD
+License:        GPLv3+ with exceptions
 URL:            https://%{provider_prefix}
 Source0:        https://%{provider_prefix}/releases/download/%{repo}-%{version}/%{repo}-%{version}.tar.xz
 
@@ -55,6 +55,9 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Mar 17 2021 Stephen Gallagher <sgallagh@redhat.com> - 2.6.2-5
+- Fixing incorrect license declaration
+
 * Wed Mar 17 2021 Stephen Gallagher <sgallagh@redhat.com> - 2.6.2-4
 - Updating to rebuild against the latest glibc
 
