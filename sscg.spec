@@ -8,8 +8,8 @@
 
 
 Name:           sscg
-Version:        2.6.2
-Release:        5%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        Simple SSL certificate generator
 
 License:        GPLv3+ with exceptions
@@ -55,6 +55,12 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Wed Jul 21 2021 Stephen Gallagher <sgallagh@redhat.com> - 3.0.0-1
+- Release 3.0.0
+- Support for OpenSSL 3.0
+- Support for outputting named Diffie-Hellman parameter groups
+- Support for CentOS Stream 9
+
 * Wed Mar 17 2021 Stephen Gallagher <sgallagh@redhat.com> - 2.6.2-5
 - Fixing incorrect license declaration
 
