@@ -26,6 +26,10 @@ BuildRequires:  ninja-build
 BuildRequires:  help2man
 
 
+# Upstream patch providing more OpenSSL 3.0 compatibility
+Patch0001: 0001-Drop-usage-of-ERR_GET_FUNC.patch
+
+
 %description
 A utility to aid in the creation of more secure "self-signed"
 certificates. The certificates created by this tool are generated in a
