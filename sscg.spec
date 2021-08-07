@@ -9,7 +9,7 @@
 
 Name:           sscg
 Version:        3.0.0
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Simple SSL certificate generator
 
 License:        GPLv3+ with exceptions
@@ -55,3 +55,4 @@ false signatures from the service certificate.
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+%autochangelog
