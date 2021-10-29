@@ -6,16 +6,16 @@
 %global provider_prefix %{provider}.%{provider_tld}/%{project}/%{repo}
 %global import_path     %{provider_prefix}
 
+%{!?meson_test: %global meson_test %{__meson} test -C %{_vpath_builddir} --num-processes %{_smp_build_ncpus} --print-errorlogs}
 
 Name:           sscg
-Version:        3.0.0
+Version:        3.0.1
 Release:        %autorelease
 Summary:        Simple SSL certificate generator
 
 License:        GPLv3+ with exceptions
 URL:            https://%{provider_prefix}
-Source0:        https://%{provider_prefix}/releases/download/%{repo}-%{version}/%{repo}-%{version}.tar.xz
-
+Source0:        https://%{provider_prefix}/archive/refs/tags/%{repo}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  libtalloc-devel
 BuildRequires:  openssl-devel
@@ -24,10 +24,6 @@ BuildRequires:  libpath_utils-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man
-
-
-# Upstream patch providing more OpenSSL 3.0 compatibility
-Patch0001: 0001-Drop-usage-of-ERR_GET_FUNC.patch
 
 
 %description
@@ -39,7 +35,7 @@ up a full PKI environment and without exposing the machine to a risk of
 false signatures from the service certificate.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{name}-%{version}
 
 
 %build
