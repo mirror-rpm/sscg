@@ -1,0 +1,34 @@
+From b9f757736f73db8c58bb9e422e018ab84eabd51f Mon Sep 17 00:00:00 2001
+From: Stephen Gallagher <sgallagh@redhat.com>
+Date: Tue, 1 Mar 2022 16:46:24 -0500
+Subject: [PATCH 2/4] Fix another negative bitshift issue
+
+Signed-off-by: Stephen Gallagher <sgallagh@redhat.com>
+---
+ src/io_utils.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/io_utils.c b/src/io_utils.c
+index 0e05ed9..158db07 100644
+--- a/src/io_utils.c
++++ b/src/io_utils.c
+@@ -264,10 +264,16 @@ sscg_io_utils_add_output_key (struct sscg_stream **streams,
+   int ret, i;
+   TALLOC_CTX *tmp_ctx = NULL;
+   struct sscg_stream *stream = NULL;
+   char *normalized_path = NULL;
+ 
++  if (filetype < 0 || filetype > SSCG_NUM_FILE_TYPES)
++    {
++      SSCG_ERROR ("Unknown filetype for stream");
++      return EINVAL;
++    }
++
+   /* If we haven't been passed a path, just return; it's probably an optional
+    * output file
+    */
+   if (path == NULL)
+     {
+-- 
+2.35.1
+
