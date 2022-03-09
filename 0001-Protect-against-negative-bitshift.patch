@@ -1,0 +1,40 @@
+From e1e473650b45aff0b6a1fc50f4bdd7752dc45c85 Mon Sep 17 00:00:00 2001
+From: Stephen Gallagher <sgallagh@redhat.com>
+Date: Tue, 1 Mar 2022 16:37:22 -0500
+Subject: [PATCH 1/4] Protect against negative bitshift
+
+Coverity scan identified that SSCG_FILE_TYPE_UNKNOWN could cause the
+bitshifts further down to attempt to shift a negative number, which
+results in undefined behavior. Though it should never occur that this
+function is called with an invalid type, it's best to be overly
+cautious and check for it.
+
+Signed-off-by: Stephen Gallagher <sgallagh@redhat.com>
+---
+ src/io_utils.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/src/io_utils.c b/src/io_utils.c
+index 1b8bc41..0e05ed9 100644
+--- a/src/io_utils.c
++++ b/src/io_utils.c
+@@ -99,10 +99,16 @@ struct sscg_stream *
+ sscg_io_utils_get_stream_by_type (struct sscg_stream **streams,
+                                   enum sscg_file_type filetype)
+ {
+   struct sscg_stream *stream = NULL;
+ 
++  if (filetype < 0 || filetype > SSCG_NUM_FILE_TYPES)
++    {
++      SSCG_LOG (SSCG_DEFAULT, "Unknown filetype for stream");
++      return NULL;
++    }
++
+   /* First see if this path already exists in the list */
+   for (int i = 0; (stream = streams[i]) && i < SSCG_NUM_FILE_TYPES; i++)
+     {
+       SSCG_LOG (SSCG_DEBUG,
+                 "Checking for 0x%.4x in 0x%.4x\n",
+-- 
+2.35.1
+

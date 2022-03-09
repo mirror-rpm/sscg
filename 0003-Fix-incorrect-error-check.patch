@@ -1,0 +1,36 @@
+From 3483a978eb1c667760992b012ea7350313b5a15a Mon Sep 17 00:00:00 2001
+From: Stephen Gallagher <sgallagh@redhat.com>
+Date: Tue, 8 Mar 2022 16:33:35 -0500
+Subject: [PATCH 3/4] Fix incorrect error-check
+
+Signed-off-by: Stephen Gallagher <sgallagh@redhat.com>
+---
+ src/x509.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/src/x509.c b/src/x509.c
+index 7c7e4df..23bb337 100644
+--- a/src/x509.c
++++ b/src/x509.c
+@@ -287,11 +287,17 @@ sscg_x509v3_csr_new (TALLOC_CTX *mem_ctx,
+           alt_name = tmp;
+         }
+     }
+ 
+   ex = X509V3_EXT_conf_nid (NULL, NULL, NID_subject_alt_name, alt_name);
+-  CHECK_MEM (ex);
++  if (!ex)
++    {
++      ret = EINVAL;
++      fprintf (stderr, "Invalid subjectAlternativeName: %s\n", alt_name);
++      goto done;
++    }
++
+   sk_X509_EXTENSION_push (certinfo->extensions, ex);
+ 
+   /* Set the public key for the certificate */
+   sslret = X509_REQ_set_pubkey (csr->x509_req, spkey->evp_pkey);
+   CHECK_SSL (sslret, X509_REQ_set_pubkey (OU));
+-- 
+2.35.1
+
